@@ -14,20 +14,19 @@ public class StudentService {
 
 	@Autowired
 	private StudentRepository studentRepository;
+
 	public void addStudent(Student student) {
-		
 		studentRepository.save(student);
 	}
-	
 	
 	public List<Student> viewStudent() {
 		return studentRepository.findAll();
 	}
 	
 	public Student editStudent(int id){
-		Optional<Student> e = studentRepository.findById(id);
-		if (e.isPresent()) {
-			return e.get();
+		Optional<Student> student = studentRepository.findById(id);
+		if (student.isPresent()) {
+			return student.get();
 		}
 		return null;
 	}
@@ -35,5 +34,10 @@ public class StudentService {
 	public void deleteStudent(int id) {
 		studentRepository.deleteById(id);
 	}
+
+    public Student findByFullNameAndRollNumber(String email, String rollNumber) {
+        return studentRepository.findByEmailAndRollNumber(email, rollNumber);
+        // throw new UnsupportedOperationException("Unimplemented method 'findByFullNameAndRollNumber'");
+    }
 	
 }
